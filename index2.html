@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas</title>
+    <!-- Solo CSS -->
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #taskContainer {
+            text-align: center;
+            margin-top: 14px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom:  25px;
+        }
+
+        input[type="text"] {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="taskContainer">
+
+        <h1>Lista de Tareas</h1>
+
+        <input type="text" id="taskInput" placeholder="Nueva Tarea">
+        <button onclick="addtask()">Agregar Tarea</button>
+
+        <ul id="taskList"></ul>
+
+    </div>
+
+    <script>
+        const taskList = document.querySelector("#taskList");
+        let tasks = [];
+
+        function addtask(){
+            // Obtener el valor del Input
+            const taskName = document.getElementById("taskInput").value;
+            
+            if(taskName.trim() !== ""){
+                // Agregar al array y mostrarlo en la lista
+                tasks.push(taskName);
+                
+                const li = document.createElement("li");
+                li.innerText = taskName;
+
+                const btn = document.createElement("button");
+                btn.innerHTML = " X";
+                btn.onclick = () => deletetask(btn, taskName)
+
+                li.appendChild(btn);
+                taskList.append(li);
+
+                // Limpiar el Input
+                document.getElementById("taskInput").value = "";
+            }else {
+                alert("La tarea no puede estar vacía")
+            }
+        };
+
+        function deletetask(elementoBoton, nombreTarea){
+            elementoBoton.parentElement.remove();
+
+            // Eliminar de las tareas guardadas
+            tasks = tasks.filter((tarea) => tarea != nombreTarea);
+        };
+        
+        // Mostrar las Tareas Guardadas
+        tasks.forEach(addtask);
+    </script>
+</body>
+</html>

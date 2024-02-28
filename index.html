@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #taskContainer {
+            text-align: center;
+            margin-top: 14px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="taskContainer">
+
+        <h1>Lista de Tareas</h1>
+
+        <input type="text" id="taskInput" placeholder="Nueva tarea">
+        <button onclick="addTask()">Agregar tarea</button>
+
+        <ul id="taskList"></ul>
+
+    </div>
+
+    <script>
+        let facu
+        function addTask() {
+            var taskInput = document.getElementById("taskInput");
+            var taskList = document.getElementById("taskList");
+
+            if (taskInput.value !== "") {
+                var newTask = document.createElement("li");
+                newTask.innerHTML = taskInput.value + ' <button onclick="removeTask(this)">Eliminar</button>';
+                taskList.appendChild(newTask);
+                taskInput.value = "";
+            }
+        }
+
+        function removeTask(button) {
+            var taskList = document.getElementById("taskList");
+            var listItem = button.parentNode;
+            taskList.removeChild(listItem);
+        }
+    </script>
+
+</body>
+</html>
